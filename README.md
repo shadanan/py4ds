@@ -4,10 +4,10 @@ This is a short course for data scientists that spend a lot of time working with
 
 The course is presented in the style of LeetCode. You have a series of problems to solve. Every problem has an instructions markdown file (index.md), a file with tests (tests.py), a python file where you are to write the solution to the problem (problem.py), and a python file with our solution (solution.py). For example:
 
-- Instructions: [day0/index.md](day0/index.md)
-- Tests: [day0/tests.py](day0/tests.py)
-- Problem: [day0/problem.py](day0/problem.py)
-- Our Solution: [day0/solution.py](day0/solution.py)
+- Instructions: [p000/index.md](p000/index.md)
+- Tests: [p000/tests.py](p000/tests.py)
+- Problem: [p000/problem.py](p000/problem.py)
+- Our Solution: [p000/solution.py](p000/solution.py)
 
 ## Getting Started
 
@@ -25,8 +25,9 @@ The course is presented in the style of LeetCode. You have a series of problems 
 
 In VS Code, right click **_README.md_** in the Explorer pane, and then click on **_Open Preview_**. This will open these instructions in preview mode so that you can follow the links in these markdown files.
 
-Now, follow the link to [Day 0](day0/index.md)!
+Now, follow the link to [Day 0](p000/index.md)!
 
 ## Table of Contents
 
-- [Day 0 - Sum of Two Values](day0/index.md)
+- [Day 0 - Sum of Two Values](p000/index.md)
+- [Day 1 - Read a File and Return a List of Numbers](p001/index.md)
