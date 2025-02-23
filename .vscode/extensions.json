@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "ms-python.vscode-pylance",
+    "ms-toolsai.jupyter",
+    "bierner.markdown-mermaid",
+    "charliermarsh.ruff"
+  ],
+  "unwantedRecommendations": []
+}
