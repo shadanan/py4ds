@@ -21,13 +21,13 @@ The course is presented in the style of LeetCode. You have a series of problems 
    $ uv sync
    ```
 
-## Solve Day 0
+## Solve Problem 0
 
 In VS Code, right click **_README.md_** in the Explorer pane, and then click on **_Open Preview_**. This will open these instructions in preview mode so that you can follow the links in these markdown files.
 
-Now, follow the link to [Day 0](p000/index.md)!
+Now, follow the link to [Problem 0](p000/index.md)!
 
 ## Table of Contents
 
-- [Day 0 - Sum of Two Values](p000/index.md)
-- [Day 1 - Read a File and Return a List of Numbers](p001/index.md)
+- [Problem 0 - Sum of Two Values](p000/index.md)
+- [Problem 1 - Read a File and Return a List of Numbers](p001/index.md)
