@@ -2,7 +2,7 @@
 
 This warmup question will ensure that you've set up your environment properly!
 
-Your goal is to implement this function:
+Your goal is to implement [problem.py](problem.py).
 
 ```python
 def sum_of_two_values(val1: int, val2: int) -> int:
@@ -11,9 +11,7 @@ def sum_of_two_values(val1: int, val2: int) -> int:
 
 It should add `val1` to `val2` and return the result. For example, if `val1 = 2` and `val2 = 3`, `sum_of_two_values` should return `5`.
 
-Solve the problem here: [problem.py](problem.py)
-
-> **_Hint: Drag the solution file over to the right so that you can have the instructions visible on the left!_**
+> **_Hint: Open [problem.py](problem.py) and drag it over to the right so that you can have the instructions visible side by side!_**
 
 To check if you did it correctly, run the tests for your file:
 
@@ -23,4 +21,4 @@ To check if you did it correctly, run the tests for your file:
 
 If you did it correctly, the tests should pass and will be green!
 
-Next up: [Problem 1 - Read a File and Return a List of Numbers](p001/index.md)
+Next up: [Problem 1 - Read a File and Return a List of Numbers](../p001/index.md)

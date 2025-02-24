@@ -31,8 +31,9 @@ class LinkManager:
 
         return LinkManager(titles)
 
-    def get_link(self, id: int) -> str:
-        return f"[Problem {id} - {self.titles[id]}](p{id:03}/index.md)"
+    def get_link(self, id: int, *, relative=".") -> str:
+        path = os.path.join(relative, f"p{id:03}/index.md")
+        return f"[Problem {id} - {self.titles[id]}]({path})"
 
     def update_readme(self):
         with open("README.md", "r") as fp:
@@ -67,7 +68,7 @@ class LinkManager:
         else:
             result.append("")
 
-        result.append(f"Next up: {self.get_link(id + 1)}")
+        result.append(f"Next up: {self.get_link(id + 1, relative='..')}")
         result.append("")
 
         with open(index_md, "w") as fp:
