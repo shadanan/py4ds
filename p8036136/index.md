@@ -12,7 +12,7 @@ Given a file name, read the file and return a list of integers. The [file](data1
 >
 > ```python
 > if __name__ == "__main__":
->     print(load_data("p001/data1.dat"))
+>     print(load_data("p8036136/data1.dat"))
 > ```
 >
 > With a main function, you can run your script by clicking the play button in the top right of VS Code.
