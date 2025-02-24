@@ -29,5 +29,5 @@ Now, follow the link to [Problem 0](p000/index.md)!
 
 ## Table of Contents
 
-- [Problem 0 - Sum of Two Values](./p000/index.md)
-- [Problem 1 - Read a File and Return a List of Numbers](./p001/index.md)
+- [Problem 0 - Sum of Two Values](./p9229893/index.md)
+- [Problem 1 - Read a File and Return a List of Numbers](./p8036136/index.md)
