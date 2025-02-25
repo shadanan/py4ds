@@ -104,6 +104,7 @@ INDEX_MD = Template("""
 
 TESTS_PY = Template("""
 import os
+
 if "PY4DS_PYTEST" in os.environ:
     from .solution import ${func}
 else:
@@ -132,15 +133,15 @@ def add_problem(func: str, title: str):
     with open(os.path.join(new_problem_id, "__init__.py"), "w") as fp:
         pass
     with open(os.path.join(new_problem_id, "index.md"), "w") as fp:
-        fp.write(INDEX_MD.substitute({"title": title}))
+        fp.write(INDEX_MD.substitute({"title": title}).lstrip())
 
     substitution = {"func": func}
     with open(os.path.join(new_problem_id, "tests.py"), "w") as fp:
-        fp.write(TESTS_PY.substitute(substitution))
+        fp.write(TESTS_PY.substitute(substitution).lstrip())
     with open(os.path.join(new_problem_id, "problem.py"), "w") as fp:
-        fp.write(PROBLEM_PY.substitute(substitution))
+        fp.write(PROBLEM_PY.substitute(substitution).lstrip())
     with open(os.path.join(new_problem_id, "solution.py"), "w") as fp:
-        fp.write(PROBLEM_PY.substitute(substitution))
+        fp.write(PROBLEM_PY.substitute(substitution).lstrip())
 
     update_links()
 
@@ -165,7 +166,7 @@ def main():
         return
 
     if args.cmd == "add-problem":
-        add_problem(args.title)
+        add_problem(args.func, args.title)
 
 
 if __name__ == "__main__":
