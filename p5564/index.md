@@ -1,0 +1,39 @@
+# Vectorize Words in a Sentence
+
+Large language models and other neural network models typically require input data to be in the form of a vector. In this problem, we will implement an object that turns words in a sentence into a vector.
+
+Here's how your vectorizer will be used. First, we have the training data, which is a list of sentences. You can assume there won't be any punctuation.
+
+```python
+training_data = [
+  "this is some training data"
+]
+```
+
+You will then fit your vectorizer to the training data:
+
+```python
+vectorizer = Vectorizer()
+vectorizer.fit(training_data)
+```
+
+Once fit, you can use your vectorizer to transform a sentence into a vector:
+
+```python
+vectorizer.transform("this is test data")
+```
+
+The output vector should be a tuple of 0s and 1s. When you fit your data, your vectorizer should uniquely assign words in alphabetical order to the positions in the vector. When you transform a sentence, each position in the output vector should be 1 if the word corresponding to the position is in the sentence, otherwise 0. If the sentence contains words that do not correspond to a position in the vector, the word should be ignored.
+
+So, in this example, the output would be:
+
+```
+(1, 1, 0, 1, 0)
+ ^  ^  ^  ^  ^-- training
+ |  |  |  \----- this
+ |  |  \-------- some
+ |  \----------- is
+ \-------------- data
+```
+
+Our training data was the sentence `"this is some training data"`. So our output vector would be of length 5 because there are 5 unique words. And each position in the output vector would correspond to `("data", "is", "some", "this", "training")` as these are the unique words from the sentence in alphabetical order. Finally, when we transform the sentence `"this is test data"`, the words `"this"`, `"is"`, and `"data"` are present and therefore have the value 1. `"some"` and `"training"` are not, and therefore have the value 0. And the word `"test"` is not present in the training data, so it not expressed in the output vector.
