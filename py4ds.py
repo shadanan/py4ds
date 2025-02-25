@@ -94,6 +94,14 @@ def update_links():
     link_manager.update_instructions()
 
 
+INDEX_MD = Template("""
+# ${title}
+
+- Problem: [problem.py](problem.py)
+- Tests: [tests.py](tests.py)
+- Solution: [solution.py](solution.py)
+""")
+
 TESTS_PY = Template("""
 import os
 if "PY4DS_PYTEST" in os.environ:
@@ -124,7 +132,7 @@ def add_problem(func: str, title: str):
     with open(os.path.join(new_problem_id, "__init__.py"), "w") as fp:
         pass
     with open(os.path.join(new_problem_id, "index.md"), "w") as fp:
-        fp.write(f"# {title}\n")
+        fp.write(INDEX_MD.substitute({"title": title}))
 
     substitution = {"func": func}
     with open(os.path.join(new_problem_id, "tests.py"), "w") as fp:
@@ -133,6 +141,8 @@ def add_problem(func: str, title: str):
         fp.write(PROBLEM_PY.substitute(substitution))
     with open(os.path.join(new_problem_id, "solution.py"), "w") as fp:
         fp.write(PROBLEM_PY.substitute(substitution))
+
+    update_links()
 
 
 def main():
