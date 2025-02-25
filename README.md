@@ -31,3 +31,4 @@ Now, follow the link to [Problem 0](p9893/index.md)!
 
 - [Problem 0 - Sum of Two Values](./p9893/index.md)
 - [Problem 1 - Read a File and Return a List of Numbers](./p6136/index.md)
+- [Problem 2 - Vectorize Words in a Sentence](./p5564/index.md)

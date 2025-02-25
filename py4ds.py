@@ -1,6 +1,9 @@
+import argparse
 import json
 import os
+import random
 from dataclasses import dataclass
+from string import Template
 
 
 @dataclass(frozen=True)
@@ -85,10 +88,74 @@ class LinkManager:
             self.update_instruction(curr, next)
 
 
-def main():
+def update_links():
     link_manager = LinkManager.create()
     link_manager.update_readme()
     link_manager.update_instructions()
+
+
+TESTS_PY = Template("""
+import os
+if "PY4DS_PYTEST" in os.environ:
+    from .solution import ${func}
+else:
+    from .problem import ${func}
+""")
+
+PROBLEM_PY = Template("""
+def ${func}():
+    pass
+""")
+
+
+def add_problem(func: str, title: str):
+    with open("problems.json", "r") as fp:
+        problem_ids = json.load(fp)
+    while True:
+        new_problem_id = f"p{random.randint(0, 9999):04}"
+        if new_problem_id not in problem_ids:
+            break
+
+    problem_ids.append(new_problem_id)
+    with open("problems.json", "w") as fp:
+        json.dump(problem_ids, fp)
+
+    os.makedirs(new_problem_id)
+    with open(os.path.join(new_problem_id, "__init__.py"), "w") as fp:
+        pass
+    with open(os.path.join(new_problem_id, "index.md"), "w") as fp:
+        fp.write(f"# {title}\n")
+
+    substitution = {"func": func}
+    with open(os.path.join(new_problem_id, "tests.py"), "w") as fp:
+        fp.write(TESTS_PY.substitute(substitution))
+    with open(os.path.join(new_problem_id, "problem.py"), "w") as fp:
+        fp.write(PROBLEM_PY.substitute(substitution))
+    with open(os.path.join(new_problem_id, "solution.py"), "w") as fp:
+        fp.write(PROBLEM_PY.substitute(substitution))
+
+
+def main():
+    parser = argparse.ArgumentParser()
+
+    subparsers = parser.add_subparsers(title="commands", required=True)
+
+    update_links_parser = subparsers.add_parser("update-links")
+    update_links_parser.set_defaults(cmd="update-links")
+
+    add_problem_parser = subparsers.add_parser("add-problem")
+    add_problem_parser.set_defaults(cmd="add-problem")
+    add_problem_parser.add_argument("func", help="The name of the function")
+    add_problem_parser.add_argument("title", help="The title of the problem")
+
+    args = parser.parse_args()
+
+    if args.cmd == "update-links":
+        update_links()
+        return
+
+    if args.cmd == "add-problem":
+        add_problem(args.title)
 
 
 if __name__ == "__main__":
