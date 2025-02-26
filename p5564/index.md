@@ -53,3 +53,5 @@ Our training data was the sentence `"this is some training data"`. So our output
 > ```
 >
 > With this main block, you can run your script by clicking the play button in the top right of VS Code.
+
+Next up: [Problem 3 - Read CSV as List of Dictionaries](../p6897/index.md)
