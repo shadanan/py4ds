@@ -31,4 +31,4 @@ Write a function called `read_csv` that takes the CSV filename as input and retu
 
 There's some test data that you can use in [data/salaries.csv](../data/salaries.csv). Try passing that file to your read_csv function!
 
-Next up: [Problem 3 - Vectorize Words in a Sentence](../p5564/index.md)
+Next up: [Problem 3 - Filter Salaries Greater than 100k](../p7519/index.md)
