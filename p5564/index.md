@@ -56,3 +56,5 @@ Our training data was the sentence `"this is some training data"`. So our output
 > ```
 >
 > With this main block, you can run your script by clicking the play button in the top right of VS Code.
+
+Next up: [Problem p1322 - Summary Statistics of a Column in List of Dictionaries](../p1322/index.md)
