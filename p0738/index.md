@@ -51,3 +51,5 @@ Your function should return a list of `Salary` objects equivalent to:
 - Use the `csv` module for reading the file
 - Make sure the salary is converted to a float
 - Handle any potential errors gracefully
+
+Next up: [Problem p5564 - Vectorize Words in a Sentence](../p5564/index.md)

@@ -35,4 +35,5 @@ Now, follow the link to [Problem 0](p9893/index.md)!
 - [Problem p6136 - Read a File and Return a List of Numbers](./p6136/index.md)
 - [Problem p6897 - Read CSV as List of Dictionaries](./p6897/index.md)
 - [Problem p7519 - Filter Salaries Greater than 100k](./p7519/index.md)
+- [Problem p0738 - Read Salaries CSV as List of Salary Dataclasses](./p0738/index.md)
 - [Problem p5564 - Vectorize Words in a Sentence](./p5564/index.md)
