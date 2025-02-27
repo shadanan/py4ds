@@ -1,8 +1,11 @@
 # Read CSV as List of Dictionaries
 
-- Problem: [problem.py](problem.py)
-- Tests: [tests.py](tests.py)
-- Solution: [solution.py](solution.py)
+- Problem: [problem.py](problem.py) _(create this file)_
+- Template: [template.py](template.py) _(copy starter code from here)_
+- Tests: [test_all.py](test_all.py) _(tests that verify your solution)_
+- Solution: [solution.py](solution.py) _(our solution)_
+
+**_Note: The [problem.py](problem.py) doesn't exist yet! After clicking the link above, click "Create File"._**
 
 In pandas, you can read a CSV file using `pd.read_csv` and it will return a pandas DataFrame. Without pandas, we don't have DataFrames, but it is possible to represent tables using native Python types. One way to do this is with a list of dictionaries. In this exercise, we will read a CSV file as a list of dictionaries.
 

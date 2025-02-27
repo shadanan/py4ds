@@ -2,7 +2,7 @@
 
 - Problem: [problem.py](problem.py) _(create this file)_
 - Template: [template.py](template.py) _(copy starter code from here)_
-- Tests: [tests.py](tests.py) _(tests that verify your solution)_
+- Tests: [test_all.py](test_all.py) _(tests that verify your solution)_
 - Solution: [solution.py](solution.py) _(our solution)_
 
 **_Note: The [problem.py](problem.py) doesn't exist yet! After clicking the link above, click "Create File"._**

@@ -1,8 +1,11 @@
 # Vectorize Words in a Sentence
 
-- Problem: [problem.py](problem.py)
-- Tests: [tests.py](tests.py)
-- Solution: [solution.py](solution.py)
+- Problem: [problem.py](problem.py) _(create this file)_
+- Template: [template.py](template.py) _(copy starter code from here)_
+- Tests: [test_all.py](test_all.py) _(tests that verify your solution)_
+- Solution: [solution.py](solution.py) _(our solution)_
+
+**_Note: The [problem.py](problem.py) doesn't exist yet! After clicking the link above, click "Create File"._**
 
 Large language models and other neural network models typically require input data to be in the form of a vector. In this problem, we will implement an object that turns words in a sentence into a vector.
 
