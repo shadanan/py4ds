@@ -45,7 +45,7 @@ def test_calculate_statistics_salary_sum():
 
 def test_calculate_statistics_salary_mean_median():
     result = calculate_statistics(SALARY_DATA, "salary")
-    assert result["mean"] == 85166.67
+    assert round(result["mean"], 2) == 85166.67
     assert result["median"] == 82000
 
 
@@ -62,7 +62,7 @@ def test_calculate_statistics_age_score():
     assert age_result["min"] == 22
     assert age_result["max"] == 30
     assert age_result["sum"] == 77
-    assert age_result["mean"] == 25.67
+    assert round(age_result["mean"], 2) == 25.67
     assert age_result["median"] == 25
 
     # Test score statistics
@@ -71,7 +71,7 @@ def test_calculate_statistics_age_score():
     assert score_result["min"] == 78.3
     assert score_result["max"] == 92.5
     assert score_result["sum"] == 255.8
-    assert score_result["mean"] == 85.27
+    assert round(score_result["mean"], 2) == 85.27
     assert score_result["median"] == 85.0
 
 

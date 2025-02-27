@@ -56,11 +56,3 @@ calculate_statistics(data, 'age')
 calculate_statistics(data, 'score')
 # Returns: {'count': 3, 'min': 78.3, 'max': 92.5, 'sum': 255.8, 'mean': 85.27, 'median': 85.0}
 ```
-
-### Notes:
-
-- The input `data` will always be a list of dictionaries.
-- Some dictionaries might not have the specified column, or the value might be None.
-- Only numeric values (int, float) should be included in the calculations.
-- Round mean values to 2 decimal places.
-- If no valid values are found for the column, return an empty dictionary.

@@ -7,7 +7,7 @@ def calculate_statistics(data: list[dict], column: str):
     min_val = min(values)
     max_val = max(values)
     sum_val = sum(values)
-    mean = round(sum_val / count, 2)
+    mean = sum_val / count
 
     # Calculate median
     sorted_values = sorted(values)
