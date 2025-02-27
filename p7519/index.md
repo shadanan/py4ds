@@ -8,4 +8,4 @@ In [Read CSV as List of Dictionaries](../p6897/index.md), we wrote a function th
 
 In this problem, we will write a function that takes a list of dictionaries that represent [salaries](../data/salaries.csv), and select those rows where the salary column is more than $100,000.
 
-Next up: [Problem 4 - Vectorize Words in a Sentence](../p5564/index.md)
+Next up: [Problem p5564 - Vectorize Words in a Sentence](../p5564/index.md)

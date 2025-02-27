@@ -29,8 +29,8 @@ Now, follow the link to [Problem 0](p9893/index.md)!
 
 ## Table of Contents
 
-- [Problem 0 - Sum of Two Values](./p9893/index.md)
-- [Problem 1 - Read a File and Return a List of Numbers](./p6136/index.md)
-- [Problem 2 - Read CSV as List of Dictionaries](./p6897/index.md)
-- [Problem 3 - Filter Salaries Greater than 100k](./p7519/index.md)
-- [Problem 4 - Vectorize Words in a Sentence](./p5564/index.md)
+- [Problem p9893 - Sum of Two Values](./p9893/index.md)
+- [Problem p6136 - Read a File and Return a List of Numbers](./p6136/index.md)
+- [Problem p6897 - Read CSV as List of Dictionaries](./p6897/index.md)
+- [Problem p7519 - Filter Salaries Greater than 100k](./p7519/index.md)
+- [Problem p5564 - Vectorize Words in a Sentence](./p5564/index.md)
