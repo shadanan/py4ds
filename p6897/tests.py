@@ -3,7 +3,7 @@ import os
 if "PY4DS_PYTEST" in os.environ:
     from .solution import read_csv
 else:
-    from .problem import read_csv
+    from .problem import read_csv  # type: ignore
 
 example_csv = os.path.join(os.path.dirname(os.path.abspath(__file__)), "example.csv")
 

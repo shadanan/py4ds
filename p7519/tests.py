@@ -4,7 +4,7 @@ import os
 if "PY4DS_PYTEST" in os.environ:
     from .solution import filter_salaries
 else:
-    from .problem import filter_salaries
+    from .problem import filter_salaries  # type: ignore
 
 with open("data/salaries.csv", "r") as fp:
     salaries = list(csv.DictReader(fp))

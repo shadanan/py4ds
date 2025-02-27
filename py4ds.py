@@ -96,9 +96,12 @@ def update_links():
 INDEX_MD = Template("""
 # ${title}
 
-- Problem: [problem.py](problem.py)
-- Tests: [tests.py](tests.py)
-- Solution: [solution.py](solution.py)
+- Problem: [problem.py](problem.py) _(create this file)_
+- Template: [template.py](template.py) _(copy starter code from here)_
+- Tests: [tests.py](tests.py) _(tests that verify your solution)_
+- Solution: [solution.py](solution.py) _(our solution)_
+
+**_Note: The [problem.py](problem.py) doesn't exist yet! After clicking the link above, click "Create File"._**
 """)
 
 TESTS_PY = Template("""
@@ -107,10 +110,10 @@ import os
 if "PY4DS_PYTEST" in os.environ:
     from .solution import ${func}
 else:
-    from .problem import ${func}
+    from .problem import ${func}  # type: ignore
 """)
 
-PROBLEM_PY = Template("""
+TEMPLATE_PY = Template("""
 def ${func}():
     pass
 """)
@@ -137,10 +140,10 @@ def add_problem(func: str, title: str):
     substitution = {"func": func}
     with open(os.path.join(new_problem_id, "tests.py"), "w") as fp:
         fp.write(TESTS_PY.substitute(substitution).lstrip())
-    with open(os.path.join(new_problem_id, "problem.py"), "w") as fp:
-        fp.write(PROBLEM_PY.substitute(substitution).lstrip())
+    with open(os.path.join(new_problem_id, "template.py"), "w") as fp:
+        fp.write(TEMPLATE_PY.substitute(substitution).lstrip())
     with open(os.path.join(new_problem_id, "solution.py"), "w") as fp:
-        fp.write(PROBLEM_PY.substitute(substitution).lstrip())
+        fp.write(TEMPLATE_PY.substitute(substitution).lstrip())
 
 
 def main():

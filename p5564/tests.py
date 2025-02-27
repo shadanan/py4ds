@@ -3,7 +3,7 @@ import os
 if "PY4DS_PYTEST" in os.environ:
     from .solution import Vectorizer
 else:
-    from .problem import Vectorizer
+    from .problem import Vectorizer  # type: ignore
 
 
 def test_instructions_example():

@@ -3,7 +3,7 @@ import os
 if "PY4DS_PYTEST" in os.environ:
     from .solution import load_data
 else:
-    from .problem import load_data
+    from .problem import load_data  # type: ignore
 
 data1 = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data1.dat")
 
