@@ -2,10 +2,10 @@
 
 This is a short course for data scientists that spend a lot of time working with pandas but may want to practice their pure Python skills.
 
-The course is presented in the style of LeetCode. You have a series of problems to solve. Every problem has an instructions markdown file (index.md), a file with tests (tests.py), a starter python file (template.py), and a python file with our solution (solution.py). For example:
+The course is presented in the style of LeetCode. You have a series of problems to solve. Every problem has an instructions markdown file (index.md), a file with tests (test_all.py), a starter python file (template.py), and a python file with our solution (solution.py). For example:
 
 - Instructions: [index.md](p9893/index.md)
-- Tests: [tests.py](p9893/tests.py)
+- Tests: [test_all.py](p9893/test_all.py)
 - Template: [template.py](p9893/template.py)
 - Our Solution: [solution.py](p9893/solution.py)
 

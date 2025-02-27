@@ -98,7 +98,7 @@ INDEX_MD = Template("""
 
 - Problem: [problem.py](problem.py) _(create this file)_
 - Template: [template.py](template.py) _(copy starter code from here)_
-- Tests: [tests.py](tests.py) _(tests that verify your solution)_
+- Tests: [test_all.py](test_all.py) _(tests that verify your solution)_
 - Solution: [solution.py](solution.py) _(our solution)_
 
 **_Note: The [problem.py](problem.py) doesn't exist yet! After clicking the link above, click "Create File"._**
@@ -138,7 +138,7 @@ def add_problem(func: str, title: str):
         fp.write(INDEX_MD.substitute({"title": title}).lstrip())
 
     substitution = {"func": func}
-    with open(os.path.join(new_problem_id, "tests.py"), "w") as fp:
+    with open(os.path.join(new_problem_id, "test_all.py"), "w") as fp:
         fp.write(TESTS_PY.substitute(substitution).lstrip())
     with open(os.path.join(new_problem_id, "template.py"), "w") as fp:
         fp.write(TEMPLATE_PY.substitute(substitution).lstrip())
