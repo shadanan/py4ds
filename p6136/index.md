@@ -17,4 +17,4 @@ Given a file name, read the file and return a list of integers. The [file](data1
 >
 > With a main function, you can run your script by clicking the play button in the top right of VS Code.
 
-Next up: [Problem 2 - Read CSV as List of Dictionaries](../p6897/index.md)
+Next up: [Problem p6897 - Read CSV as List of Dictionaries](../p6897/index.md)

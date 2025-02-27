@@ -9,7 +9,6 @@ from string import Template
 @dataclass(frozen=True)
 class Problem:
     id: str
-    index: int
     title: str
 
     @property
@@ -18,7 +17,7 @@ class Problem:
 
     def link(self, relative="."):
         path = os.path.join(relative, self.instructions)
-        return f"[Problem {self.index} - {self.title}]({path})"
+        return f"[Problem {self.id} - {self.title}]({path})"
 
 
 @dataclass
@@ -31,7 +30,7 @@ class LinkManager:
             ids: list[str] = json.load(fp)
 
         problems: list[Problem] = []
-        for index, id in enumerate(ids):
+        for id in ids:
             if not os.path.exists(id):
                 raise Exception(f"Folder for problem {id} is missing")
             index_md = os.path.join(id, "index.md")
@@ -41,7 +40,7 @@ class LinkManager:
                     raise Exception(
                         f"Instructions for problem {id} didn't start with a header ('# ') line"
                     )
-                problems.append(Problem(id, index, title[2:]))
+                problems.append(Problem(id, title[2:]))
 
         return LinkManager(problems)
 
@@ -142,8 +141,6 @@ def add_problem(func: str, title: str):
         fp.write(PROBLEM_PY.substitute(substitution).lstrip())
     with open(os.path.join(new_problem_id, "solution.py"), "w") as fp:
         fp.write(PROBLEM_PY.substitute(substitution).lstrip())
-
-    update_links()
 
 
 def main():

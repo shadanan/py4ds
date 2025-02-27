@@ -53,5 +53,3 @@ Our training data was the sentence `"this is some training data"`. So our output
 > ```
 >
 > With this main block, you can run your script by clicking the play button in the top right of VS Code.
-
-Next up: [Problem 4 - Filter Salaries Greater than 100k](../p7519/index.md)
