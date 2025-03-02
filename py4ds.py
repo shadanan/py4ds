@@ -124,8 +124,7 @@ else:
 """)
 
 TEMPLATE_PY = Template("""
-def ${func}():
-    pass
+def ${func}(): ...
 """)
 
 

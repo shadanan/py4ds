@@ -3,9 +3,7 @@ from typing import List
 
 
 @dataclass
-class Salary:
-    pass
+class Salary: ...
 
 
-def read_csv(filename: str) -> List[Salary]:
-    pass
+def read_csv(filename: str) -> List[Salary]: ...
