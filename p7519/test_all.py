@@ -1,10 +1,11 @@
 import csv
 import os
+from typing import TYPE_CHECKING
 
-if "PY4DS_PYTEST" in os.environ:
+if TYPE_CHECKING or "PY4DS_PYTEST" in os.environ:
     from .solution import filter_salaries
 else:
-    from .problem import filter_salaries  # type: ignore
+    from .problem import filter_salaries
 
 with open("data/salaries.csv", "r") as fp:
     salaries = list(csv.DictReader(fp))

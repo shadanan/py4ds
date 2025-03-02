@@ -115,11 +115,12 @@ INDEX_MD = Template("""
 
 TESTS_PY = Template("""
 import os
+from typing import TYPE_CHECKING
 
-if "PY4DS_PYTEST" in os.environ:
+if TYPE_CHECKING or "PY4DS_PYTEST" in os.environ:
     from .solution import ${func}
 else:
-    from .problem import ${func}  # type: ignore
+    from .problem import ${func}
 """)
 
 TEMPLATE_PY = Template("""

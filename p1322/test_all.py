@@ -1,9 +1,10 @@
 import os
+from typing import TYPE_CHECKING
 
-if "PY4DS_PYTEST" in os.environ:
+if TYPE_CHECKING or "PY4DS_PYTEST" in os.environ:
     from .solution import calculate_statistics
 else:
-    from .problem import calculate_statistics  # type: ignore
+    from .problem import calculate_statistics
 
 SALARY_DATA = [
     {

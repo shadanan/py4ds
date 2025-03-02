@@ -1,9 +1,10 @@
 import os
+from typing import TYPE_CHECKING
 
-if "PY4DS_PYTEST" in os.environ:
+if TYPE_CHECKING or "PY4DS_PYTEST" in os.environ:
     from .solution import sum_of_two_values
 else:
-    from .problem import sum_of_two_values  # type: ignore
+    from .problem import sum_of_two_values
 
 
 def test_1_plus_1_is_2():

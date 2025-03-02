@@ -1,9 +1,10 @@
 import os
+from typing import TYPE_CHECKING
 
-if "PY4DS_PYTEST" in os.environ:
+if TYPE_CHECKING or "PY4DS_PYTEST" in os.environ:
     from .solution import read_csv
 else:
-    from .problem import read_csv  # type: ignore
+    from .problem import read_csv
 
 example_csv = os.path.join(os.path.dirname(os.path.abspath(__file__)), "example.csv")
 
