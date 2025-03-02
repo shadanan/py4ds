@@ -10,7 +10,7 @@ class Vectorizer:
                 unique_words.add(word)
         self.words = {word: index for index, word in enumerate(sorted(unique_words))}
 
-    def transform(self, sentence: str) -> tuple[int]:
+    def transform(self, sentence: str) -> tuple[int, ...]:
         result = [0] * len(self.words)
         unique_words = set(sentence.split())
         for word in unique_words:
