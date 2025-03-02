@@ -1,2 +1,1 @@
-def calculate_statistics(data: list[dict], column: str) -> dict:
-    pass
+def calculate_statistics(data: list[dict], column: str) -> dict: ...

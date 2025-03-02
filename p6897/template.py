@@ -1,2 +1,1 @@
-def read_csv(filename: str) -> list[dict]:
-    pass
+def read_csv(filename: str) -> list[dict]: ...

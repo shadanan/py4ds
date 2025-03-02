@@ -1,2 +1,1 @@
-def load_data(filename: str) -> list[int]:
-    pass
+def load_data(filename: str) -> list[int]: ...
