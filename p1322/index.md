@@ -56,3 +56,5 @@ calculate_statistics(data, 'age')
 calculate_statistics(data, 'score')
 # Returns: {'count': 3, 'min': 78.3, 'max': 92.5, 'sum': 255.8, 'mean': 85.27, 'median': 85.0}
 ```
+
+Next up: [Problem p6808 - Model a Vector using Dataclasses](../p6808/index.md)
