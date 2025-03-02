@@ -38,3 +38,4 @@ Now, follow the link to [Problem p9893](p9893/index.md)!
 - [Problem p0738 - Read Salaries CSV as List of Salary Dataclasses](./p0738/index.md)
 - [Problem p5564 - Vectorize Words in a Sentence](./p5564/index.md)
 - [Problem p1322 - Summary Statistics of a Column in List of Dictionaries](./p1322/index.md)
+- [Problem p6808 - Model a Vector using Dataclasses](./p6808/index.md)
