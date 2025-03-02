@@ -2,35 +2,39 @@ import argparse
 import json
 import os
 import random
+import re
 from dataclasses import dataclass
 from string import Template
+
+INDEX_MD_PATTERN = re.compile(r"\[.*?\]\(\.\./+(p\d+)/index\.md\)")
 
 
 @dataclass(frozen=True)
 class Problem:
     id: str
     title: str
+    next_id: str | None
 
     @property
     def instructions(self) -> str:
         return os.path.join(self.id, "index.md")
 
-    def link(self, relative="."):
+    def link(self, relative: str = "."):
         path = os.path.join(relative, self.instructions)
         return f"[Problem {self.id} - {self.title}]({path})"
 
 
 @dataclass
 class LinkManager:
-    problems: list[Problem]
+    problems: dict[str, Problem]
 
     @staticmethod
     def create() -> "LinkManager":
         with open("problems.json", "r") as fp:
             ids: list[str] = json.load(fp)
 
-        problems: list[Problem] = []
-        for id in ids:
+        problems: dict[str, Problem] = {}
+        for id, next_id in zip(ids, ids[1:] + [None]):
             if not os.path.exists(id):
                 raise Exception(f"Folder for problem {id} is missing")
             index_md = os.path.join(id, "index.md")
@@ -40,7 +44,7 @@ class LinkManager:
                     raise Exception(
                         f"Instructions for problem {id} didn't start with a header ('# ') line"
                     )
-                problems.append(Problem(id, title[2:]))
+                problems[id] = Problem(id, title[2:], next_id)
 
         return LinkManager(problems)
 
@@ -48,7 +52,7 @@ class LinkManager:
         with open("README.md", "r") as fp:
             lines = fp.read().splitlines()
 
-        result = []
+        result: list[str] = []
         for line in lines:
             if line.startswith("## Table of Contents"):
                 break
@@ -58,33 +62,38 @@ class LinkManager:
 
         result.append("## Table of Contents")
         result.append("")
-        result += [f"- {problem.link()}" for problem in self.problems]
+        result += [f"- {problem.link()}" for problem in self.problems.values()]
         result.append("")
 
         with open("README.md", "w") as fp:
             fp.write("\n".join(result))
 
-    def update_instruction(self, curr: Problem, next: Problem):
+    def replace_link(self, match: re.Match[str]):
+        return self.problems[match.group(1)].link(relative="..")
+
+    def update_instruction(self, curr: Problem):
         with open(curr.instructions, "r") as fp:
             lines = fp.read().splitlines()
 
-        result = []
+        result: list[str] = []
         for line in lines:
             if line.startswith("Next up: "):
                 break
-            result.append(line)
+            result.append(INDEX_MD_PATTERN.sub(self.replace_link, line))
         else:
             result.append("")
 
-        result.append(f"Next up: {next.link(relative='..')}")
-        result.append("")
+        if curr.next_id is not None:
+            next = self.problems[curr.next_id]
+            result.append(f"Next up: {next.link(relative='..')}")
+            result.append("")
 
         with open(curr.instructions, "w") as fp:
             fp.write("\n".join(result))
 
     def update_instructions(self):
-        for curr, next in zip(self.problems[0:-1], self.problems[1:]):
-            self.update_instruction(curr, next)
+        for problem in self.problems.values():
+            self.update_instruction(problem)
 
 
 def update_links():
