@@ -11,7 +11,7 @@ In this exercise, you'll work with a CSV file containing salary information and 
 
 ## Problem Statement
 
-In [Problem p7519 - Filter Salaries Greater than 100k](./p7519/index.md), we filtered a list of dictionaries for salaries greater than $100,000. One of the problems with using a list of dictionaries is that we don't know the **_types_** of the columns. This makes it inconvenient to work with the data. We had to convert the salary to a number before we could compare it to 100,000.
+In [Problem p7519 - Filter Salaries Greater than 100k](../p7519/index.md), we filtered a list of dictionaries for salaries greater than $100,000. One of the problems with using a list of dictionaries is that we don't know the **_types_** of the columns. This makes it inconvenient to work with the data. We had to convert the salary to a number before we could compare it to 100,000.
 
 One way to make working with our data easier is to use a dataclass. Using a dataclass, we can specify that the type of the salary column is a float. The types for the columns in some data is called a schema.
 

@@ -27,7 +27,7 @@ In each problem, you need to create [problem.py](p9893/problem.py) and write you
 
 In VS Code, right click **_README.md_** in the Explorer pane, and then click on **_Open Preview_**. This will open these instructions in preview mode so that you can follow the links in these markdown files.
 
-Now, follow the link to [Problem 0](p9893/index.md)!
+Now, follow the link to [Problem p9893](p9893/index.md)!
 
 ## Table of Contents
 

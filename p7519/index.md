@@ -7,7 +7,7 @@
 
 **_Note: The [problem.py](problem.py) doesn't exist yet! After clicking the link above, click "Create File"._**
 
-In [Read CSV as List of Dictionaries](../p6897/index.md), we wrote a function that reads a CSV file and returns it as a list of dictionaries.
+In [Problem p6897 - Read CSV as List of Dictionaries](../p6897/index.md), we wrote a function that reads a CSV file and returns it as a list of dictionaries.
 
 In this problem, we will write a function that takes a list of dictionaries that represent [salaries](../data/salaries.csv), and select those rows where the salary column is more than $100,000.
 
