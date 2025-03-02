@@ -1,9 +1,10 @@
 import os
+from typing import TYPE_CHECKING
 
-if "PY4DS_PYTEST" in os.environ:
+if TYPE_CHECKING or "PY4DS_PYTEST" in os.environ:
     from .solution import load_data
 else:
-    from .problem import load_data  # type: ignore
+    from .problem import load_data
 
 data1 = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data1.dat")
 

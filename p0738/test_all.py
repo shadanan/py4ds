@@ -1,10 +1,11 @@
 import os
 from pathlib import Path
+from typing import TYPE_CHECKING
 
-if "PY4DS_PYTEST" in os.environ:
+if TYPE_CHECKING or "PY4DS_PYTEST" in os.environ:
     from .solution import Salary, read_csv
 else:
-    from .problem import Salary, read_csv  # type: ignore
+    from .problem import Salary, read_csv
 
 
 def test_example_read_csv():
