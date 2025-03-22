@@ -23,7 +23,7 @@ In each problem, you need to create [problem.py](p9893/problem.py) and write you
    $ uv sync
    ```
 
-## Solve the Firsdt Problem
+## Solve the First Problem
 
 In VS Code, right click **_README.md_** in the Explorer pane, and then click on **_Open Preview_**. This will open these instructions in preview mode so that you can follow the links in these markdown files.
 

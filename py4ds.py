@@ -1,15 +1,14 @@
 import argparse
-import json
 import os
 import random
 import re
 from dataclasses import dataclass
 from string import Template
 
-INDEX_MD_PATTERN = re.compile(r"\[.*?\]\(\.\./+(p\d+)/index\.md\)")
+INDEX_MD_PATTERN = re.compile(r"\[.*?\]\(\.+/+(p\d+)/index\.md\)")
 
 
-@dataclass(frozen=True)
+@dataclass
 class Problem:
     id: str
     title: str
@@ -28,10 +27,16 @@ class Problem:
 class LinkManager:
     problems: dict[str, Problem]
 
-    @staticmethod
-    def create() -> "LinkManager":
-        with open("problems.json", "r") as fp:
-            ids: list[str] = json.load(fp)
+    @classmethod
+    def create(cls):
+        with open("README.md", "r") as fp:
+            lines = fp.read().splitlines()
+
+        ids = [
+            match.group(1)
+            for line in lines[lines.index("## Table of Contents") :]
+            if line.startswith("- ") and (match := INDEX_MD_PATTERN.search(line))
+        ]
 
         problems: dict[str, Problem] = {}
         for id, next_id in zip(ids, ids[1:] + [None]):
@@ -46,7 +51,17 @@ class LinkManager:
                     )
                 problems[id] = Problem(id, title[2:], next_id)
 
-        return LinkManager(problems)
+        return cls(problems)
+
+    def append(self, title: str) -> str:
+        while True:
+            new_problem_id = f"p{random.randint(0, 9999):04}"
+            if new_problem_id not in self.problems:
+                break
+        last_problem = list(self.problems.values())[-1]
+        last_problem.next_id = new_problem_id
+        self.problems[new_problem_id] = Problem(new_problem_id, title, None)
+        return new_problem_id
 
     def update_readme(self):
         with open("README.md", "r") as fp:
@@ -129,16 +144,9 @@ def ${func}(): ...
 
 
 def add_problem(func: str, title: str):
-    with open("problems.json", "r") as fp:
-        problem_ids = json.load(fp)
-    while True:
-        new_problem_id = f"p{random.randint(0, 9999):04}"
-        if new_problem_id not in problem_ids:
-            break
-
-    problem_ids.append(new_problem_id)
-    with open("problems.json", "w") as fp:
-        json.dump(problem_ids, fp)
+    link_manager = LinkManager.create()
+    new_problem_id = link_manager.append(title)
+    link_manager.update_readme()
 
     os.makedirs(new_problem_id)
     with open(os.path.join(new_problem_id, "__init__.py"), "w") as fp:
