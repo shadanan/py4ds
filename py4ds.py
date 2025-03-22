@@ -1,52 +1,62 @@
 import argparse
-import json
 import os
 import random
 import re
 from dataclasses import dataclass
 from string import Template
 
-INDEX_MD_PATTERN = re.compile(r"\[.*?\]\(\.\./+(p\d+)/index\.md\)")
-
-
-@dataclass(frozen=True)
-class Problem:
-    id: str
-    title: str
-    next_id: str | None
-
-    @property
-    def instructions(self) -> str:
-        return os.path.join(self.id, "index.md")
-
-    def link(self, relative: str = "."):
-        path = os.path.join(relative, self.instructions)
-        return f"[Problem {self.id} - {self.title}]({path})"
+INDEX_MD_PATTERN = re.compile(r"\[.*?\]\(\.+/+(p\d+)/index\.md\)")
 
 
 @dataclass
 class LinkManager:
-    problems: dict[str, Problem]
+    problem_ids: list[str]
 
-    @staticmethod
-    def create() -> "LinkManager":
-        with open("problems.json", "r") as fp:
-            ids: list[str] = json.load(fp)
+    @classmethod
+    def create(cls):
+        with open("README.md", "r") as fp:
+            lines = fp.read().splitlines()
 
-        problems: dict[str, Problem] = {}
-        for id, next_id in zip(ids, ids[1:] + [None]):
-            if not os.path.exists(id):
-                raise Exception(f"Folder for problem {id} is missing")
-            index_md = os.path.join(id, "index.md")
-            with open(index_md) as fp:
-                title = fp.readline().strip()
-                if not title.startswith("# "):
-                    raise Exception(
-                        f"Instructions for problem {id} didn't start with a header ('# ') line"
-                    )
-                problems[id] = Problem(id, title[2:], next_id)
+        ids = [
+            match.group(1)
+            for line in lines[lines.index("## Table of Contents") :]
+            if line.startswith("- ") and (match := INDEX_MD_PATTERN.search(line))
+        ]
 
-        return LinkManager(problems)
+        return cls(ids)
+
+    def get_index_md(self, id: str) -> str:
+        return os.path.join(id, "index.md")
+
+    def get_title(self, id: str) -> str:
+        if not os.path.exists(id):
+            raise Exception(f"Folder for problem {id} is missing")
+        with open(self.get_index_md(id)) as fp:
+            title = fp.readline().strip()
+            if not title.startswith("# "):
+                raise Exception(
+                    f"Instructions for problem {id} didn't start with a header ('# ') line"
+                )
+        return title[2:]
+
+    def get_link(self, id: str, relative: str = "."):
+        path = os.path.join(relative, self.get_index_md(id))
+        return f"[Problem {id} - {self.get_title(id)}]({path})"
+
+    def get_next(self, id: str) -> str | None:
+        index = self.problem_ids.index(id)
+        if index + 1 < len(self.problem_ids):
+            return self.problem_ids[index + 1]
+        return None
+
+    def append(self) -> str:
+        existing_problems = set(self.problem_ids)
+        while True:
+            new_problem_id = f"p{random.randint(0, 9999):04}"
+            if new_problem_id not in existing_problems:
+                break
+        self.problem_ids.append(new_problem_id)
+        return new_problem_id
 
     def update_readme(self):
         with open("README.md", "r") as fp:
@@ -62,17 +72,17 @@ class LinkManager:
 
         result.append("## Table of Contents")
         result.append("")
-        result += [f"- {problem.link()}" for problem in self.problems.values()]
+        result += [f"- {self.get_link(id)}" for id in self.problem_ids]
         result.append("")
 
         with open("README.md", "w") as fp:
             fp.write("\n".join(result))
 
     def replace_link(self, match: re.Match[str]):
-        return self.problems[match.group(1)].link(relative="..")
+        return self.get_link(match.group(1), relative="..")
 
-    def update_instruction(self, curr: Problem):
-        with open(curr.instructions, "r") as fp:
+    def update_instruction(self, id: str):
+        with open(self.get_index_md(id), "r") as fp:
             lines = fp.read().splitlines()
 
         result: list[str] = []
@@ -83,17 +93,17 @@ class LinkManager:
         else:
             result.append("")
 
-        if curr.next_id is not None:
-            next = self.problems[curr.next_id]
-            result.append(f"Next up: {next.link(relative='..')}")
+        next_id = self.get_next(id)
+        if next_id is not None:
+            result.append(f"Next up: {self.get_link(next_id, relative='..')}")
             result.append("")
 
-        with open(curr.instructions, "w") as fp:
+        with open(self.get_index_md(id), "w") as fp:
             fp.write("\n".join(result))
 
     def update_instructions(self):
-        for problem in self.problems.values():
-            self.update_instruction(problem)
+        for id in self.problem_ids:
+            self.update_instruction(id)
 
 
 def update_links():
@@ -129,16 +139,8 @@ def ${func}(): ...
 
 
 def add_problem(func: str, title: str):
-    with open("problems.json", "r") as fp:
-        problem_ids = json.load(fp)
-    while True:
-        new_problem_id = f"p{random.randint(0, 9999):04}"
-        if new_problem_id not in problem_ids:
-            break
-
-    problem_ids.append(new_problem_id)
-    with open("problems.json", "w") as fp:
-        json.dump(problem_ids, fp)
+    link_manager = LinkManager.create()
+    new_problem_id = link_manager.append()
 
     os.makedirs(new_problem_id)
     with open(os.path.join(new_problem_id, "__init__.py"), "w") as fp:
@@ -153,6 +155,8 @@ def add_problem(func: str, title: str):
         fp.write(TEMPLATE_PY.substitute(substitution).lstrip())
     with open(os.path.join(new_problem_id, "solution.py"), "w") as fp:
         fp.write(TEMPLATE_PY.substitute(substitution).lstrip())
+
+    link_manager.update_readme()
 
 
 def main():
