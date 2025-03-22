@@ -23,7 +23,7 @@ In each problem, you need to create [problem.py](p9893/problem.py) and write you
    $ uv sync
    ```
 
-## Solve Problem 0
+## Solve the Firsdt Problem
 
 In VS Code, right click **_README.md_** in the Explorer pane, and then click on **_Open Preview_**. This will open these instructions in preview mode so that you can follow the links in these markdown files.
 
@@ -39,3 +39,4 @@ Now, follow the link to [Problem p9893](p9893/index.md)!
 - [Problem p5564 - Vectorize Words in a Sentence](./p5564/index.md)
 - [Problem p1322 - Summary Statistics of a Column in List of Dictionaries](./p1322/index.md)
 - [Problem p6808 - Model a Vector using Dataclasses](./p6808/index.md)
+- [Problem p5738 - Convert a List of Dictionaries to a Dictionary of Lists](./p5738/index.md)
