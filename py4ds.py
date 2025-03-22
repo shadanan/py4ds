@@ -11,16 +11,26 @@ INDEX_MD_PATTERN = re.compile(r"\[.*?\]\(\.+/+(p\d+)/index\.md\)")
 @dataclass
 class Problem:
     id: str
-    title: str
     next_id: str | None
 
     @property
     def instructions(self) -> str:
         return os.path.join(self.id, "index.md")
 
+    def title(self) -> str:
+        if not os.path.exists(self.id):
+            raise Exception(f"Folder for problem {id} is missing")
+        with open(self.instructions) as fp:
+            title = fp.readline().strip()
+            if not title.startswith("# "):
+                raise Exception(
+                    f"Instructions for problem {id} didn't start with a header ('# ') line"
+                )
+        return title[2:]
+
     def link(self, relative: str = "."):
         path = os.path.join(relative, self.instructions)
-        return f"[Problem {self.id} - {self.title}]({path})"
+        return f"[Problem {self.id} - {self.title()}]({path})"
 
 
 @dataclass
@@ -40,27 +50,18 @@ class LinkManager:
 
         problems: dict[str, Problem] = {}
         for id, next_id in zip(ids, ids[1:] + [None]):
-            if not os.path.exists(id):
-                raise Exception(f"Folder for problem {id} is missing")
-            index_md = os.path.join(id, "index.md")
-            with open(index_md) as fp:
-                title = fp.readline().strip()
-                if not title.startswith("# "):
-                    raise Exception(
-                        f"Instructions for problem {id} didn't start with a header ('# ') line"
-                    )
-                problems[id] = Problem(id, title[2:], next_id)
+            problems[id] = Problem(id, next_id)
 
         return cls(problems)
 
-    def append(self, title: str) -> str:
+    def append(self) -> str:
         while True:
             new_problem_id = f"p{random.randint(0, 9999):04}"
             if new_problem_id not in self.problems:
                 break
         last_problem = list(self.problems.values())[-1]
         last_problem.next_id = new_problem_id
-        self.problems[new_problem_id] = Problem(new_problem_id, title, None)
+        self.problems[new_problem_id] = Problem(new_problem_id, None)
         return new_problem_id
 
     def update_readme(self):
@@ -145,8 +146,7 @@ def ${func}(): ...
 
 def add_problem(func: str, title: str):
     link_manager = LinkManager.create()
-    new_problem_id = link_manager.append(title)
-    link_manager.update_readme()
+    new_problem_id = link_manager.append()
 
     os.makedirs(new_problem_id)
     with open(os.path.join(new_problem_id, "__init__.py"), "w") as fp:
@@ -161,6 +161,8 @@ def add_problem(func: str, title: str):
         fp.write(TEMPLATE_PY.substitute(substitution).lstrip())
     with open(os.path.join(new_problem_id, "solution.py"), "w") as fp:
         fp.write(TEMPLATE_PY.substitute(substitution).lstrip())
+
+    link_manager.update_readme()
 
 
 def main():
