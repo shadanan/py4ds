@@ -9,33 +9,8 @@ INDEX_MD_PATTERN = re.compile(r"\[.*?\]\(\.+/+(p\d+)/index\.md\)")
 
 
 @dataclass
-class Problem:
-    id: str
-    next_id: str | None
-
-    @property
-    def instructions(self) -> str:
-        return os.path.join(self.id, "index.md")
-
-    def title(self) -> str:
-        if not os.path.exists(self.id):
-            raise Exception(f"Folder for problem {id} is missing")
-        with open(self.instructions) as fp:
-            title = fp.readline().strip()
-            if not title.startswith("# "):
-                raise Exception(
-                    f"Instructions for problem {id} didn't start with a header ('# ') line"
-                )
-        return title[2:]
-
-    def link(self, relative: str = "."):
-        path = os.path.join(relative, self.instructions)
-        return f"[Problem {self.id} - {self.title()}]({path})"
-
-
-@dataclass
 class LinkManager:
-    problems: dict[str, Problem]
+    problem_ids: list[str]
 
     @classmethod
     def create(cls):
@@ -48,20 +23,39 @@ class LinkManager:
             if line.startswith("- ") and (match := INDEX_MD_PATTERN.search(line))
         ]
 
-        problems: dict[str, Problem] = {}
-        for id, next_id in zip(ids, ids[1:] + [None]):
-            problems[id] = Problem(id, next_id)
+        return cls(ids)
 
-        return cls(problems)
+    def get_index_md(self, id: str) -> str:
+        return os.path.join(id, "index.md")
+
+    def get_title(self, id: str) -> str:
+        if not os.path.exists(id):
+            raise Exception(f"Folder for problem {id} is missing")
+        with open(self.get_index_md(id)) as fp:
+            title = fp.readline().strip()
+            if not title.startswith("# "):
+                raise Exception(
+                    f"Instructions for problem {id} didn't start with a header ('# ') line"
+                )
+        return title[2:]
+
+    def get_link(self, id: str, relative: str = "."):
+        path = os.path.join(relative, self.get_index_md(id))
+        return f"[Problem {id} - {self.get_title(id)}]({path})"
+
+    def get_next(self, id: str) -> str | None:
+        index = self.problem_ids.index(id)
+        if index + 1 < len(self.problem_ids):
+            return self.problem_ids[index + 1]
+        return None
 
     def append(self) -> str:
+        existing_problems = set(self.problem_ids)
         while True:
             new_problem_id = f"p{random.randint(0, 9999):04}"
-            if new_problem_id not in self.problems:
+            if new_problem_id not in existing_problems:
                 break
-        last_problem = list(self.problems.values())[-1]
-        last_problem.next_id = new_problem_id
-        self.problems[new_problem_id] = Problem(new_problem_id, None)
+        self.problem_ids.append(new_problem_id)
         return new_problem_id
 
     def update_readme(self):
@@ -78,17 +72,17 @@ class LinkManager:
 
         result.append("## Table of Contents")
         result.append("")
-        result += [f"- {problem.link()}" for problem in self.problems.values()]
+        result += [f"- {self.get_link(id)}" for id in self.problem_ids]
         result.append("")
 
         with open("README.md", "w") as fp:
             fp.write("\n".join(result))
 
     def replace_link(self, match: re.Match[str]):
-        return self.problems[match.group(1)].link(relative="..")
+        return self.get_link(match.group(1), relative="..")
 
-    def update_instruction(self, curr: Problem):
-        with open(curr.instructions, "r") as fp:
+    def update_instruction(self, id: str):
+        with open(self.get_index_md(id), "r") as fp:
             lines = fp.read().splitlines()
 
         result: list[str] = []
@@ -99,17 +93,17 @@ class LinkManager:
         else:
             result.append("")
 
-        if curr.next_id is not None:
-            next = self.problems[curr.next_id]
-            result.append(f"Next up: {next.link(relative='..')}")
+        next_id = self.get_next(id)
+        if next_id is not None:
+            result.append(f"Next up: {self.get_link(next_id, relative='..')}")
             result.append("")
 
-        with open(curr.instructions, "w") as fp:
+        with open(self.get_index_md(id), "w") as fp:
             fp.write("\n".join(result))
 
     def update_instructions(self):
-        for problem in self.problems.values():
-            self.update_instruction(problem)
+        for id in self.problem_ids:
+            self.update_instruction(id)
 
 
 def update_links():
