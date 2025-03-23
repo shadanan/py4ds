@@ -48,5 +48,3 @@ print(v1 == Vector(3, 4))  # True
 2. Implement `__add__`, `__sub__`, and `__eq__` methods
 3. Ensure coordinates are stored as integers
 4. Make sure all operations return a new Vector instance
-
-Next up: [Problem p5738 - Convert a List of Dictionaries to a Dictionary of Lists](../p5738/index.md)
