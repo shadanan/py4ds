@@ -52,4 +52,4 @@ Your function should return a list of `Salary` objects equivalent to:
 - Make sure the salary is converted to a float
 - Handle any potential errors gracefully
 
-Next up: [Problem p5564 - Vectorize Words in a Sentence](../p5564/index.md)
+Next up: [Problem p5738 - Convert a List of Dictionaries to a Dictionary of Lists](../p5738/index.md)

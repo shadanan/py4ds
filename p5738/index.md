@@ -52,3 +52,5 @@ output = pivot(input_data)
 #     "in_stock": [True, False, True]
 # }
 ```
+
+Next up: [Problem p3036 - Convert a Dictionary of Lists to a List of Dictionaries](../p3036/index.md)
